@@ -43,6 +43,8 @@ apis:
       - type: Documentation
         url: https://encurate.app/keto_diet_api/
 common:
+  - type: DomainSecurity
+    url: security/encurate-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/encurate
   - type: Website

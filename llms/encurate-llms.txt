@@ -1,0 +1,79 @@
+# Encurate
+
+> Encurate (encurate.app) is a content-management backend for mobile apps that also publishes five
+> read-only reference-data APIs — keto recipes, cat breeds, dog breeds, commercial airplanes and
+> cannabis strains — distributed exclusively through the RapidAPI marketplace. All 44 published
+> operations are HTTP GET returning JSON. Encurate publishes no OpenAPI, no SDK, no MCP server and no
+> agent card; there is no write surface, so idempotency and reversibility are not applicable.
+
+Generated 2026-09-06 by API Evangelist from this repository and from Encurate's own public pages.
+Encurate does not serve an llms.txt of its own (https://encurate.app/llms.txt returned HTTP 404 on
+2026-09-06). This file is a third-party index, not a provider-published document.
+
+## How to call these APIs
+
+Every dataset API is reached through the RapidAPI proxy, not through encurate.app. Send both headers:
+
+- `X-RapidAPI-Key: <your RapidAPI subscription key>`
+- `X-RapidAPI-Host: <the api host, e.g. keto-diet.p.rapidapi.com>`
+
+Without a key the proxy returns `401 {"message":"Invalid API key. ..."}`; over quota it returns
+`429 {"message":"Too many requests"}`. The origin behind the proxy (https://encurate.app/meta/keto/)
+answers `401 {"detail":"Authentication credentials were not provided."}` and is not documented for
+direct public use.
+
+## APIs
+
+- [Keto Diet API](https://rapidapi.com/encurateapi-api/api/keto-diet): 450+ ketogenic recipes across 11
+  categories with calories, fats, carbohydrates and proteins as floats. Base `https://keto-diet.p.rapidapi.com`.
+  12 GET operations. Free tier 50 requests/day.
+- [AirplanesDB API](https://rapidapi.com/encurateapi-api/api/airplanesdb): specifications for commercial
+  airplanes. Base `https://airplanesdb.p.rapidapi.com`. 7 GET operations. Free tier 100 requests/day.
+- [CatBreedDB API](https://rapidapi.com/encurateapi-api/api/catbreeddb): metadata on cat breeds worldwide.
+  Base `https://catbreeddb.p.rapidapi.com`. 9 GET operations. Free tier 100 requests/day.
+- [DogBreedDB API](https://rapidapi.com/encurateapi-api/api/dogbreeddb): metadata on dog breeds worldwide.
+  Base `https://dogbreeddb.p.rapidapi.com`. 9 GET operations. Free tier 100 requests/day.
+- [Weed Strain API](https://rapidapi.com/encurateapi-api/api/weed-strain1): cannabis strain metadata —
+  type, effect, flavor, origin. Base `https://weed-strain1.p.rapidapi.com`. 7 GET operations.
+  Free tier 100 requests/day.
+
+## Query conventions
+
+- Numeric range filters use Django ORM lookup suffixes: `<field>__lt` (less than) and `<field>__gt`
+  (greater than) — e.g. `calories__lt`, `protein_in_grams__gt`, `cook_time_in_minutes__lt`.
+- Sorting is not a parameter. Ascending and descending are separate published operations.
+- Only CatBreedDB and DogBreedDB paginate, via `GET /paginated/` at 10 results per page.
+- The exact parameter names beyond the documented `__lt`/`__gt` suffixes are visible only inside the
+  authenticated RapidAPI playground.
+
+## Docs
+
+- [Encurate](https://encurate.app/) — product site and dataset index
+- [Keto Diet API page](https://encurate.app/keto_diet_api/) — the only per-API page on encurate.app
+- [Platform pricing](https://encurate.app/pricing/) — Basic $0 (100 req/day), Pro $5/month, Pro $50/year
+- [RapidAPI playground](https://rapidapi.com/encurateapi-api/api/keto-diet/playground) — interactive console
+- [Privacy policy](https://encurate.app/privacy_policy/)
+- [Submit corrections or new data](https://encurate.app/send_corrections/)
+- [App showcase](https://encurate.app/app_showcase/)
+
+## Artifacts in this profile
+
+- plans/encurate-plans-pricing.yml — 15 tiers across six surfaces, read from the provider's own pages
+- rate-limits/encurate-rate-limits.yml — 15 published limits plus observed 401/429 behaviour
+- authentication/encurate-authentication.yml — the RapidAPI two-header key scheme
+- conventions/encurate-conventions.yml — filtering, sorting, pagination, error envelopes, read-only posture
+- errors/encurate-problem-types.yml — the statuses and bodies actually observed
+- lifecycle/encurate-lifecycle.yml — versioning, marketplace telemetry, and the withdrawn BlogsAPI
+- conformance/encurate-conformance.yml — what the surfaces demonstrably do
+- packages/encurate-packages.yml — a checked absence: no SDK in any registry
+- mcp/encurate-mcp.yml — a candidate tool list derived from published operations; no server exists
+- sandbox/encurate-sandbox.yml — the RapidAPI console and the free tiers
+- well-known/encurate-well-known.yml — a recorded absence across three hosts
+- security/encurate-domain-security.yml — TLS/DNS posture
+
+## What is not published
+
+Encurate publishes no OpenAPI (RapidAPI records `spec: null` for the Keto Diet version), no AsyncAPI,
+no webhooks or events, no SDK or CLI, no status page, no changelog, no deprecation policy, no SLA,
+no terms of service page, no security.txt, no agent card, no MCP server, and no compliance program.
+The homepage still links a BlogsAPI product whose RapidAPI listing now redirects to `API not found.`

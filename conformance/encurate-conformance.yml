@@ -1,0 +1,58 @@
+generated: '2026-09-06'
+method: derived
+source:
+- RapidAPI listing records for the five Encurate APIs (HTTP 200, 2026-09-06)
+- live response probes of keto-diet.p.rapidapi.com and encurate.app/meta/
+note: 'Derived from what the surfaces demonstrably do, not from any conformance claim — Encurate makes none. No
+  domain standard applies: recipe, breed, aircraft and cannabis-strain reference data have no published interchange
+  standard, so domain_standard_conformance is not-applicable rather than failed.'
+standards:
+- id: rest-json
+  conforms: true
+  evidence: All 44 published operations are HTTP GET returning application/json; RapidAPI records apiVersionType
+    "rest" and apiSubType "rest" for every listing.
+- id: api-key-auth
+  conforms: true
+  evidence: X-RapidAPI-Key / X-RapidAPI-Host header pair; 401 observed on https://keto-diet.p.rapidapi.com/ 2026-09-06.
+- id: https-tls
+  conforms: true
+  evidence: TLSv1.3 on encurate.app; see security/encurate-domain-security.yml.
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 surface on any host; /.well-known/oauth-authorization-server returned 404 on encurate.app
+    2026-09-06.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returned 404 on encurate.app 2026-09-06.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Error bodies are {"message":...} (RapidAPI proxy) and {"detail":...} (DRF origin); no application/problem+json
+    observed.
+- id: rfc8594-sunset
+  conforms: false
+  evidence: No Sunset or Deprecation header and no deprecation policy published.
+- id: idempotency
+  conforms: na
+  evidence: Read-only API — every operation is a GET. See conventions/encurate-conventions.yml.
+- id: pagination
+  conforms: partial
+  evidence: Only CatBreedDB and DogBreedDB publish a GET /paginated/ endpoint (10 per page). The other three APIs
+    return whole collections.
+- id: openapi
+  conforms: false
+  evidence: 'RapidAPI records spec: null for the Keto Diet version object; no OpenAPI/Swagger document was found
+    on encurate.app or any p.rapidapi.com host.'
+- id: asyncapi
+  conforms: na
+  evidence: No event, streaming or webhook surface exists on any Encurate API.
+- id: json-schema
+  conforms: false
+  evidence: No response schemas published on any surface.
+domain_standard:
+  applicable: false
+  note: Encurate sells general reference datasets (keto recipes, cat/dog breeds, commercial aircraft, cannabis strains).
+    None of these markets has a published API interchange standard to conform to, so no domain-standard signature
+    was sought in the contract. Reward-only check — not a gap.
+compliance_program: null
+compliance_note: No SOC 2, ISO 27001, PCI DSS, HIPAA, FedRAMP or GDPR posture published, and no trust center. probe-security-programs.py
+  returned vdp=none trust=none on 2026-09-06. No Compliance pointer is emitted.

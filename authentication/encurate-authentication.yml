@@ -1,0 +1,59 @@
+generated: '2026-09-06'
+method: searched
+source:
+- https://rapidapi.com/encurateapi-api/api/keto-diet (HTTP 200)
+- live probe https://keto-diet.p.rapidapi.com/ -> HTTP 401 {"message":"Invalid API key..."}
+- live probe https://encurate.app/meta/keto/ -> HTTP 401 {"detail":"Authentication credentials were not provided."}
+docs: https://docs.rapidapi.com/docs/keys
+note: Encurate publishes no authentication documentation of its own. All five dataset APIs are consumed through
+  the RapidAPI marketplace proxy, so the auth contract is RapidAPI's standard two-header API-key scheme. The origin
+  behind the proxy, https://encurate.app/meta/<project>/, is a Django REST Framework service that returns 401 with
+  a DRF-shaped body to anonymous callers; it is not documented for direct public use.
+summary:
+  schemes: 2
+  oauth2: false
+  openid_connect: false
+  mtls: false
+  api_key: true
+  scopes_documented: false
+schemes:
+- name: RapidAPIKey
+  type: apiKey
+  in: header
+  parameterName: X-RapidAPI-Key
+  description: RapidAPI subscription key issued to the consumer, not to Encurate. Required on every request to every
+    Encurate dataset API.
+  applies_to:
+  - Encurate Keto Diet API
+  - Encurate AirplanesDB API
+  - Encurate CatBreedDB API
+  - Encurate DogBreedDB API
+  - Encurate Weed Strain API
+  evidence: HTTP 401 {"message":"Invalid API key. Go to https://docs.rapidapi.com/docs/keys for more info."} from
+    https://keto-diet.p.rapidapi.com/ on 2026-09-06
+- name: RapidAPIHost
+  type: apiKey
+  in: header
+  parameterName: X-RapidAPI-Host
+  description: RapidAPI proxy routing header naming the target API host, e.g. keto-diet.p.rapidapi.com. Required
+    alongside X-RapidAPI-Key.
+  applies_to:
+  - Encurate Keto Diet API
+  - Encurate AirplanesDB API
+  - Encurate CatBreedDB API
+  - Encurate DogBreedDB API
+  - Encurate Weed Strain API
+  evidence: RapidAPI proxy contract; the listing pages route through <api>.p.rapidapi.com
+origin:
+  host: encurate.app
+  base: https://encurate.app/meta/keto/
+  framework: Django REST Framework (inferred from the 401 response envelope)
+  status: 401
+  body: '{"detail":"Authentication credentials were not provided."}'
+  note: 'Auth-gated and undocumented. No public schema endpoint: /api/schema/, /schema/, /swagger.json, /redoc/,
+    /openapi/ and /docs/ all returned 404 on 2026-09-06.'
+gaps:
+- No first-party authentication page on encurate.app.
+- No OAuth 2.0 or OpenID Connect surface on any host.
+- No scopes or permissions model published — the key is all-or-nothing per subscription.
+- No key-rotation, expiry or revocation policy published.

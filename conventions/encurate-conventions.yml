@@ -1,0 +1,117 @@
+generated: '2026-09-06'
+method: searched
+source:
+- https://rapidapi.com/encurateapi-api/api/keto-diet (endpoint catalog + parameter names, HTTP 200)
+- https://rapidapi.com/encurateapi-api/api/catbreeddb, /dogbreeddb, /airplanesdb, /weed-strain1 (HTTP 200)
+- live probes of https://keto-diet.p.rapidapi.com/ (401) and /categories/ (429)
+note: 'Encurate publishes no conventions or design-guide page. Everything below is read off the endpoint names,
+  routes and parameter documentation Encurate wrote on its RapidAPI listings, plus observed responses. All five
+  APIs are READ-ONLY: every one of the 44 published operations is a GET.'
+authentication:
+  style: api-key-header
+  headers:
+  - X-RapidAPI-Key
+  - X-RapidAPI-Host
+  ref: authentication/encurate-authentication.yml
+transport:
+  protocol: HTTPS
+  format: JSON
+  content_type: application/json
+  note: 'RapidAPI proxy sets x-content-type-options: nosniff, x-frame-options: DENY, referrer-policy: strict-origin-when-cross-origin
+    on every response.'
+idempotency:
+  coverage: na
+  supported: false
+  header: null
+  scope: []
+  retention: null
+  note: Not applicable. Every published operation across all five Encurate APIs is a GET; there is no mutating surface
+    for an idempotency key to protect. GETs are inherently safe to retry.
+reversibility:
+  grade: na
+  note: Not applicable — read-only API. There is no create, update or delete operation on any of the five dataset
+    APIs, so there is nothing for an agent to take back. The one write path Encurate exposes to humans is the content-management
+    platform UI at encurate.app, which is not a documented public API.
+  write_surfaces: []
+dry_run_mode:
+  supported: false
+  note: Not applicable — read-only API.
+pagination:
+  style: mixed
+  note: Only CatBreedDB and DogBreedDB publish a paginated endpoint (GET /paginated/, "Get all breed results in
+    a set of 10 per page"). Every other listing operation returns the full collection in one response. Encurate
+    does not document the page parameter name, the page-size parameter, or any next/previous envelope fields — the
+    parameter contract is only visible inside the authenticated RapidAPI playground.
+  endpoints:
+  - GET /paginated/ (CatBreedDB)
+  - GET /paginated/ (DogBreedDB)
+  page_size: 10
+  params: undocumented publicly
+  response_fields: undocumented publicly
+filtering:
+  style: django-orm-lookup-suffixes
+  note: 'The Keto Diet API documents Django ORM lookup suffixes as query parameters: <field>__lt for "less than"
+    and <field>__gt for "greater than". This is a first-party documented convention, written by Encurate in the
+    endpoint descriptions on the RapidAPI listing, and it is consistent with the Django REST Framework origin observed
+    at encurate.app/meta/.'
+  operators:
+  - suffix: __lt
+    meaning: less than
+  - suffix: __gt
+    meaning: greater than
+  fields:
+  - protein_in_grams
+  - carbohydrates_in_grams
+  - fat_in_grams
+  - calories
+  - cook_time_in_minutes
+  - prep_time_in_minutes
+  other:
+  - search by keyword
+  - filter by category ID
+  - filter by difficulty
+  - filter by breed type
+  - filter by origin country
+  - filter by fur color
+  - filter by strain type
+  - filter by brand
+  - filter by engine keyword
+sorting:
+  style: dedicated-endpoints
+  note: Ordering is not a query parameter but a separate documented endpoint per direction — e.g. "Order by Ascending"
+    and "Order by Descending" are distinct operations on CatBreedDB, DogBreedDB, AirplanesDB, Keto Diet and Weed
+    Strain. An agent cannot compose a sort; it must pick the operation.
+field_expansion:
+  supported: false
+  note: Not documented.
+sparse_fieldsets:
+  supported: false
+  note: Not documented.
+metadata:
+  supported: false
+  note: No customer-controlled metadata field is documented.
+request_tracing:
+  header: x-rapidapi-request-id
+  note: Set by the RapidAPI proxy on every response (observed 2026-09-06), not by Encurate. Also returned on 401
+    and 429, so it is usable for support correlation on failures.
+versioning:
+  scheme: marketplace-version-object
+  current: v1
+  note: RapidAPI records a single version named "v1" with versionStatus "active" for every Encurate API. There is
+    no version segment in any route and no version header. Encurate publishes no versioning policy.
+  ref: lifecycle/encurate-lifecycle.yml
+error_envelope:
+  shape: '{"message": "<string>"}'
+  format: proprietary
+  note: 'RapidAPI proxy envelope, observed on 401 and 429. The origin uses a different DRF envelope, {"detail":
+    "<string>"}. Neither is RFC 9457 problem+json.'
+  ref: errors/encurate-problem-types.yml
+rate_limit_signaling:
+  ref: rate-limits/encurate-rate-limits.yml
+  note: RapidAPI X-RateLimit-Requests-* headers on authenticated responses; 429 with {"message":"Too many requests"}
+    on exhaustion. Encurate documents none of this itself.
+gaps:
+- No design guide, conventions page, or API reference on encurate.app.
+- Pagination and filter parameter names are only visible inside the authenticated RapidAPI playground.
+- Every listing route is "/" on the RapidAPI record, so the operations are distinguished by query parameters that
+  are not publicly documented.

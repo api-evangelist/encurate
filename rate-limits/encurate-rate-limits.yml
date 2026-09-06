@@ -4,91 +4,225 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Encurate
 providerId: encurate
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Diet
-  - Food
-  - Keto
-  - Nutrition
-  - Recipes
-  - Health
-  - Fitness
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Encurate API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+modified: '2026-09-06'
+generated: '2026-09-06'
+method: searched
+source:
+- https://rapidapi.com/encurateapi-api/api/keto-diet — RapidAPI billingPlans + rateLimit records (HTTP 200, 2026-09-06)
+- https://rapidapi.com/encurateapi-api/api/airplanesdb (HTTP 200)
+- https://rapidapi.com/encurateapi-api/api/catbreeddb (HTTP 200)
+- https://rapidapi.com/encurateapi-api/api/dogbreeddb (HTTP 200)
+- https://rapidapi.com/encurateapi-api/api/weed-strain1 (HTTP 200)
+- https://encurate.app/pricing/ — platform quota + throttle-on-cancellation statement (HTTP 200)
+- live unauthenticated probe of https://keto-diet.p.rapidapi.com/ and /categories/ (2026-09-06)
+note: Replaces the 2026-05-04 scaffold, whose 10/min, 100/min and 1000/min tiers and X-RateLimit-* header set were
+  invented. Encurate serves all five dataset APIs through the RapidAPI proxy, so the enforced limits are the RapidAPI
+  plan quotas and the runtime headers are RapidAPI's, not Encurate's own. Every value below is either read from
+  the provider's published plan record or observed on a live response.
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: X-RateLimit-Requests-Limit
+  remaining: X-RateLimit-Requests-Remaining
+  reset: X-RateLimit-Requests-Reset
+  retryAfter: null
+  policy: null
+  note: RapidAPI returns X-RateLimit-Requests-Limit / -Remaining / -Reset on AUTHENTICATED responses only. An unauthenticated
+    probe of https://keto-diet.p.rapidapi.com/ on 2026-09-06 returned HTTP 401 with no rate-limit headers, only
+    x-rapidapi-version, x-rapidapi-region, x-rapidapi-request-id and x-rapidapi-proxy-response. The header names
+    are RapidAPI's documented proxy contract; we could not observe them without a key, so they are recorded as searched
+    rather than probed. Encurate publishes no rate-limit header documentation of its own.
 responseCodes:
   throttled: 429
   quotaExceeded: 429
-  serviceUnavailable: 503
+  unauthenticated: 401
+  observed:
+  - url: https://keto-diet.p.rapidapi.com/
+    status: 401
+    body: '{"message":"Invalid API key. Go to https://docs.rapidapi.com/docs/keys for more info."}'
+  - url: https://keto-diet.p.rapidapi.com/categories/
+    status: 429
+    body: '{"message":"Too many requests"}'
+limit_count: 15
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Encurate Keto Diet API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Encurate Keto Diet API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Encurate Keto Diet API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Encurate Keto Diet API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Encurate Keto Diet API
+- tier: BASIC
+  api: Keto Diet API
+  name: Free daily request quota
+  scope: api-key
+  metric: requests_per_day
+  limit: 50
+  timeFrame: day
+  enforcement: hard
+  applies:
+  - Encurate Keto Diet API
+  source: https://rapidapi.com/encurateapi-api/api/keto-diet
+- tier: BASIC
+  api: Keto Diet API
+  name: Free burst ceiling
+  scope: api-key
+  metric: requests_per_minute
+  limit: 250
+  timeFrame: minute
+  enabled: false
+  note: 'RapidAPI rateLimit record: 250 per 60s, enabled=false — configured but not currently enforced.'
+  applies:
+  - Encurate Keto Diet API
+  source: https://rapidapi.com/encurateapi-api/api/keto-diet
+- tier: PRO
+  api: Keto Diet API
+  name: Pro daily request quota
+  scope: api-key
+  metric: requests_per_day
+  limit: 4000
+  timeFrame: day
+  enforcement: hard
+  applies:
+  - Encurate Keto Diet API
+  source: https://rapidapi.com/encurateapi-api/api/keto-diet
+- tier: PRO
+  api: Keto Diet API
+  name: Pro burst ceiling
+  scope: api-key
+  metric: requests_per_second
+  limit: 1
+  timeFrame: second
+  enabled: false
+  note: 'RapidAPI rateLimit record: 1 per 1s, enabled=false — configured but not currently enforced.'
+  applies:
+  - Encurate Keto Diet API
+  source: https://rapidapi.com/encurateapi-api/api/keto-diet
+- tier: ULTRA
+  api: Keto Diet API
+  name: Ultra monthly request quota
+  scope: api-key
+  metric: requests_per_month
+  limit: 500000
+  timeFrame: month
+  enforcement: soft
+  overagePrice: 5.0e-05
+  note: Soft limit — overage billed at $0.00005 per request rather than throttled.
+  applies:
+  - Encurate Keto Diet API
+  source: https://rapidapi.com/encurateapi-api/api/keto-diet
+- tier: BASIC
+  api: AirplanesDB API
+  name: Free daily request quota
+  scope: api-key
+  metric: requests_per_day
+  limit: 100
+  timeFrame: day
+  enforcement: hard
+  applies:
+  - Encurate AirplanesDB API
+  source: https://rapidapi.com/encurateapi-api/api/airplanesdb
+- tier: PRO
+  api: AirplanesDB API
+  name: Pro daily request quota
+  scope: api-key
+  metric: requests_per_day
+  limit: 5000
+  timeFrame: day
+  enforcement: hard
+  applies:
+  - Encurate AirplanesDB API
+  source: https://rapidapi.com/encurateapi-api/api/airplanesdb
+- tier: BASIC
+  api: CatBreedDB API
+  name: Free daily request quota
+  scope: api-key
+  metric: requests_per_day
+  limit: 100
+  timeFrame: day
+  enforcement: hard
+  applies:
+  - Encurate CatBreedDB API
+  source: https://rapidapi.com/encurateapi-api/api/catbreeddb
+- tier: PRO
+  api: CatBreedDB API
+  name: Pro monthly requests
+  scope: api-key
+  metric: requests_per_month
+  limit: null
+  unlimited: true
+  timeFrame: month
+  applies:
+  - Encurate CatBreedDB API
+  source: https://rapidapi.com/encurateapi-api/api/catbreeddb
+- tier: BASIC
+  api: DogBreedDB API
+  name: Free daily request quota
+  scope: api-key
+  metric: requests_per_day
+  limit: 100
+  timeFrame: day
+  enforcement: hard
+  applies:
+  - Encurate DogBreedDB API
+  source: https://rapidapi.com/encurateapi-api/api/dogbreeddb
+- tier: PRO
+  api: DogBreedDB API
+  name: Pro monthly request quota
+  scope: api-key
+  metric: requests_per_month
+  limit: 3000
+  timeFrame: month
+  enforcement: hard
+  applies:
+  - Encurate DogBreedDB API
+  source: https://rapidapi.com/encurateapi-api/api/dogbreeddb
+- tier: ULTRA
+  api: DogBreedDB API
+  name: Ultra monthly request quota
+  scope: api-key
+  metric: requests_per_month
+  limit: 500000
+  timeFrame: month
+  enforcement: hard
+  applies:
+  - Encurate DogBreedDB API
+  source: https://rapidapi.com/encurateapi-api/api/dogbreeddb
+- tier: BASIC
+  api: Weed Strain API
+  name: Free daily request quota
+  scope: api-key
+  metric: requests_per_day
+  limit: 100
+  timeFrame: day
+  enforcement: hard
+  applies:
+  - Encurate Weed Strain API
+  source: https://rapidapi.com/encurateapi-api/api/weed-strain1
+- tier: PRO
+  api: Weed Strain API
+  name: Pro monthly requests
+  scope: api-key
+  metric: requests_per_month
+  limit: null
+  unlimited: true
+  timeFrame: month
+  applies:
+  - Encurate Weed Strain API
+  source: https://rapidapi.com/encurateapi-api/api/weed-strain1
+- tier: Basic
+  api: Encurate platform (encurate.app)
+  name: Free daily request quota
+  scope: account
+  metric: requests_per_day
+  limit: 100
+  timeFrame: day
+  applies:
+  - Encurate Content Platform API
+  source: https://encurate.app/pricing/
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+- name: Throttle on cancellation
+  description: 'encurate.app pricing FAQ: ''After cancellation, your API requests will be throttled to 100 per day.'''
+  source: https://encurate.app/pricing/
+- name: Hard vs soft limits
+  description: RapidAPI records each quota as hard (requests rejected once exhausted) or soft (overage billed).
+    Only the Keto Diet ULTRA tier is soft, at $0.00005 per additional request.
+  source: https://rapidapi.com/encurateapi-api/api/keto-diet
+- name: Undocumented backoff
+  description: Neither encurate.app nor the RapidAPI listings document a Retry-After header, a backoff strategy,
+    or a documented reset window. A client must infer recovery from the RapidAPI proxy headers.
+  source: searched — absent from both surfaces
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

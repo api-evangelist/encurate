@@ -1,0 +1,104 @@
+generated: '2026-09-06'
+method: probed
+source: live unauthenticated HTTPS probes, 2026-09-06, browser User-Agent
+note: No document was served on any host. encurate.app answers every /.well-known/ path with a real HTTP 404 (a
+  small server-rendered Not Found page, not an SPA shell). The RapidAPI proxy host keto-diet.p.rapidapi.com gates
+  every path behind an API key, so its 401/429 responses are the marketplace's auth wall rather than evidence about
+  Encurate. No WellKnown, SecurityTxt, APICatalog or AgentCard pointer is emitted — this file records an absence.
+hosts:
+- host: encurate.app
+  role: registrable domain, website and origin API host
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog.json
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/ucp.json
+    status: 404
+    file: null
+  - path: /.well-known/acp.json
+    status: 404
+    file: null
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    file: null
+  - path: /.well-known/apis.json
+    status: 404
+    file: null
+  - path: /apis.json
+    status: 404
+    file: null
+  - path: /apis.yml
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: www.encurate.app
+  role: www alias
+  documents:
+  - path: /
+    status: 525
+    file: null
+    note: Cloudflare 525 (SSL handshake failed) — the www alias does not serve TLS; no /.well-known/ probe is meaningful.
+- host: keto-diet.p.rapidapi.com
+  role: RapidAPI proxy baseURL host for the Keto Diet API
+  documents:
+  - path: /.well-known/security.txt
+    status: 401
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 429
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 401
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 429
+    file: null
+  - path: /.well-known/api-catalog
+    status: 401
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 429
+    file: null
+  - path: /.well-known/apis.json
+    status: 401
+    file: null
+  - path: /apis.json
+    status: 429
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 429
+    file: null
+  - path: /.well-known/agent.json
+    status: 429
+    file: null
+summary:
+  hosts_probed: 3
+  documents_served: 0
+  agent_card: absent
+  security_txt: absent
+  api_catalog: absent
+  apis_json: absent
+  aauth: absent

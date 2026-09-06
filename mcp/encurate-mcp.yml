@@ -1,0 +1,362 @@
+generated: '2026-09-06'
+method: derived
+status: candidate
+source:
+- https://rapidapi.com/encurateapi-api/api/keto-diet and the four sibling listings (HTTP 200, 2026-09-06) — endpoint
+  catalogs Encurate authored
+note: 'Encurate ships no MCP server. This is a CANDIDATE tool list derived one-to-one from the operations Encurate
+  publishes on its RapidAPI listings — nothing here is invented, and nothing here is callable as MCP. It is pointed
+  at from apis.yml with type X-MCPServerCandidate, never MCPServer. input_schema is null on every tool: the query-parameter
+  contract for these operations is only visible inside the authenticated RapidAPI playground, and Encurate publishes
+  no OpenAPI to inherit it from.'
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: derived
+probes:
+- url: https://encurate.app/mcp
+  method: POST tools/list
+  status: 404
+- url: https://rapidapi.com/encurateapi-api/api/keto-diet/mcp
+  status: 404
+server:
+  name: encurate
+  transport: null
+  url: null
+tool_count: 44
+tools:
+- name: keto_filter_protein
+  description: 'Gives keto recipes within given range of protein value.
+
+    protein_in_grams__lt = Less than
+
+    protein_in_grams__gt = Greater than'
+  api: Encurate Keto Diet API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/keto-diet :: Filter - Protein'
+  input_schema: null
+- name: keto_filter_carbohydrates
+  description: 'Gives keto recipes within given range of carbohydrates value.
+
+    carbohydrates_in_grams__lt = Less than
+
+    carbohydrates_in_grams__gt = Greater than'
+  api: Encurate Keto Diet API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/keto-diet :: Filter - Carbohydrates'
+  input_schema: null
+- name: keto_filter_fats
+  description: 'Gives keto recipes within given range of fat content.
+
+    fat_in_grams__lt = Less than
+
+    fat_in_grams__gt = Greater than'
+  api: Encurate Keto Diet API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/keto-diet :: Filter - Fats'
+  input_schema: null
+- name: keto_filter_calories
+  description: 'Gives keto recipes within given range of calories.
+
+    calories__lt = Less than
+
+    calories__gt = Greater than'
+  api: Encurate Keto Diet API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/keto-diet :: Filter - Calories'
+  input_schema: null
+- name: keto_filter_cook_time_in_minutes
+  description: 'Gives keto recipes within given range of cooking time.
+
+    cook_time_in_minutes__lt = Less than
+
+    cook_time_in_minutes__gt = Greater than'
+  api: Encurate Keto Diet API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/keto-diet :: Filter - Cook Time in Minutes'
+  input_schema: null
+- name: keto_filter_prep_time_in_minutes
+  description: 'Gives keto recipes within given range of preparation time.
+
+    prep_time_in_minutes__lt = Less than
+
+    prep_time_in_minutes__gt = Greater than'
+  api: Encurate Keto Diet API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/keto-diet :: Filter - Prep Time in Minutes'
+  input_schema: null
+- name: keto_keto_recipes_by_difficulty
+  description: Gives all keto recipes by its difficulty (Easy, Medium or Difficult).
+  api: Encurate Keto Diet API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/keto-diet :: Keto Recipes by Difficulty'
+  input_schema: null
+- name: keto_all_keto_recipes_by_category
+  description: Gives all keto recipes by category ID.
+  api: Encurate Keto Diet API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/keto-diet :: All Keto Recipes by Category'
+  input_schema: null
+- name: keto_categories
+  description: Lists all available categories of keto recipe.
+  api: Encurate Keto Diet API
+  method: GET
+  route: /categories/
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/keto-diet :: Categories'
+  input_schema: null
+- name: keto_search_keto_recipe
+  description: Gives all recipes by the search term.
+  api: Encurate Keto Diet API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/keto-diet :: Search Keto Recipe'
+  input_schema: null
+- name: keto_single_keto_recipe
+  description: Gives a single recipe by ID
+  api: Encurate Keto Diet API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/keto-diet :: Single Keto Recipe'
+  input_schema: null
+- name: keto_all_keto_recipes
+  description: Get a list of all available keto recipes.
+  api: Encurate Keto Diet API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/keto-diet :: All Keto Recipes'
+  input_schema: null
+- name: airplanes_airplanes_ordered_by_descending
+  description: Get all airplanes ordered by name in descending order.
+  api: Encurate AirplanesDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/airplanesdb :: Airplanes ordered by descending'
+  input_schema: null
+- name: airplanes_airplanes_ordered_by_ascending
+  description: Get all airplanes ordered by name in ascending order.
+  api: Encurate AirplanesDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/airplanesdb :: Airplanes ordered by ascending'
+  input_schema: null
+- name: airplanes_search_by_engine
+  description: Get all airplanes by engine keyword.
+  api: Encurate AirplanesDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/airplanesdb :: Search by Engine'
+  input_schema: null
+- name: airplanes_airplanes_by_brand
+  description: Get all airplanes by brands such as Boeing, Airbus, etc.
+  api: Encurate AirplanesDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/airplanesdb :: Airplanes by Brand'
+  input_schema: null
+- name: airplanes_search
+  description: Search airplane by name.
+  api: Encurate AirplanesDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/airplanesdb :: Search'
+  input_schema: null
+- name: airplanes_single_airplane
+  description: Get details of a single airplane by its ID.
+  api: Encurate AirplanesDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/airplanesdb :: Single Airplane'
+  input_schema: null
+- name: airplanes_all_airplanes
+  description: Get complete data of all airplanes.
+  api: Encurate AirplanesDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/airplanesdb :: All Airplanes'
+  input_schema: null
+- name: cat_paginated
+  description: Get all cat breed results in a set of 10 per page.
+  api: Encurate CatBreedDB API
+  method: GET
+  route: /paginated/
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/catbreeddb :: Paginated'
+  input_schema: null
+- name: cat_order_by_descending
+  description: Gives a list of all cats sorted in descending order by name.
+  api: Encurate CatBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/catbreeddb :: Order by Descending'
+  input_schema: null
+- name: cat_order_by_ascending
+  description: Gives a list of all cats sorted in ascending order by name.
+  api: Encurate CatBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/catbreeddb :: Order by Ascending'
+  input_schema: null
+- name: cat_origin
+  description: Gives a list of all cats with the origin country.
+  api: Encurate CatBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/catbreeddb :: Origin'
+  input_schema: null
+- name: cat_fur_color
+  description: Gives a list of all cats with the color as provided in the parameter.
+  api: Encurate CatBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/catbreeddb :: Fur Color'
+  input_schema: null
+- name: cat_breed_type
+  description: Gives all results by the type of breed.
+  api: Encurate CatBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/catbreeddb :: Breed Type'
+  input_schema: null
+- name: cat_search
+  description: Search cat breed by keyword.
+  api: Encurate CatBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/catbreeddb :: Search'
+  input_schema: null
+- name: cat_single_cat_breed
+  description: Gives details of a single cat breed.
+  api: Encurate CatBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/catbreeddb :: Single Cat Breed'
+  input_schema: null
+- name: cat_all_cats
+  description: Get a list of all Cats with their basic meta data.
+  api: Encurate CatBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/catbreeddb :: All Cats'
+  input_schema: null
+- name: dog_paginated
+  description: Get all dog breed results in a set of 10 per page.
+  api: Encurate DogBreedDB API
+  method: GET
+  route: /paginated/
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/dogbreeddb :: Paginated'
+  input_schema: null
+- name: dog_order_by_descending
+  description: Gives a list of all dogs sorted in descending order by name.
+  api: Encurate DogBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/dogbreeddb :: Order by Descending'
+  input_schema: null
+- name: dog_order_by_ascending
+  description: Gives a list of all dogs sorted in ascending order by name.
+  api: Encurate DogBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/dogbreeddb :: Order by Ascending'
+  input_schema: null
+- name: dog_origin
+  description: Gives a list of all dogs with the origin country.
+  api: Encurate DogBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/dogbreeddb :: Origin'
+  input_schema: null
+- name: dog_fur_color
+  description: Gives a list of all dogs with the color as provided in the parameter.
+  api: Encurate DogBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/dogbreeddb :: Fur Color'
+  input_schema: null
+- name: dog_breed_type
+  description: Gives all results by the type of breed.
+  api: Encurate DogBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/dogbreeddb :: Breed Type'
+  input_schema: null
+- name: dog_search
+  description: Search dog breed by keyword.
+  api: Encurate DogBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/dogbreeddb :: Search'
+  input_schema: null
+- name: dog_single_dog_breed
+  description: Gives details of a single dog breed.
+  api: Encurate DogBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/dogbreeddb :: Single Dog Breed'
+  input_schema: null
+- name: dog_all_dog_breed
+  description: Gets details of all dog breeds.
+  api: Encurate DogBreedDB API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/dogbreeddb :: All Dog Breed'
+  input_schema: null
+- name: strain_all_strains_descending
+  description: List of all strains ordered by name in descending order.
+  api: Encurate Weed Strain API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/weed-strain1 :: All Strains - Descending'
+  input_schema: null
+- name: strain_all_strains_ascending
+  description: List of all strains ordered by name in ascending order.
+  api: Encurate Weed Strain API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/weed-strain1 :: All Strains - Ascending'
+  input_schema: null
+- name: strain_difficulty
+  description: Provides results of all strains by its difficulty of growing such as easy, medium or difficult.
+  api: Encurate Weed Strain API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/weed-strain1 :: Difficulty'
+  input_schema: null
+- name: strain_strain_type
+  description: Provides a list of results by strain type such as Indica, Sativa, Hybrid, etc.
+  api: Encurate Weed Strain API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/weed-strain1 :: Strain Type'
+  input_schema: null
+- name: strain_search
+  description: Provides list of results by search keyword.
+  api: Encurate Weed Strain API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/weed-strain1 :: Search'
+  input_schema: null
+- name: strain_single_strain
+  description: Provides all details for a single strain by its ID.
+  api: Encurate Weed Strain API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/weed-strain1 :: Single Strain'
+  input_schema: null
+- name: strain_all_strains
+  description: Provides a list of all available strains.
+  api: Encurate Weed Strain API
+  method: GET
+  route: /
+  source_operation: 'https://rapidapi.com/encurateapi-api/api/weed-strain1 :: All Strains'
+  input_schema: null

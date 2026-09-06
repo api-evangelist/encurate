@@ -1,0 +1,82 @@
+generated: '2026-09-06'
+method: searched
+source:
+- https://rapidapi.com/encurateapi-api/api/keto-diet and the four sibling listings (HTTP 200, 2026-09-06)
+- https://encurate.app/pricing/ (HTTP 200)
+- probes of https://encurate.app/changelog/ (404), /status/ (404), /blog/ (404)
+versioning:
+  scheme: marketplace-version-object
+  current: v1
+  status: active
+  docs: null
+  note: Every Encurate API carries a single RapidAPI version named "v1" with versionStatus "active" and apiVersionType
+    "rest". There is no version segment in any route, no version header, and no published versioning policy.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  note: No deprecation policy, no Sunset/Deprecation header support, no advance-notice commitment published on any
+    surface. No Deprecation pointer is emitted.
+sla:
+  url: null
+  uptime_target: null
+  note: Encurate publishes no SLA. RapidAPI computes its own service-level telemetry per listing (see marketplace_telemetry
+    below); that is the marketplace measuring the API, not the provider committing to anything.
+status_page: null
+status_page_note: https://encurate.app/status/ returned 404 on 2026-09-06 and no third-party status page is linked
+  from any surface. No StatusPage pointer is emitted.
+changelog: null
+changelog_note: https://encurate.app/changelog/ and /blog/ both returned 404 on 2026-09-06. RapidAPI records an
+  updatedAt timestamp per listing but publishes no dated entries. No ChangeLog pointer is emitted.
+first_published:
+  airplanesdb: '2022-08-22'
+  catbreeddb: '2022-08-22'
+  dogbreeddb: '2022-08-22'
+  weed-strain1: '2022-08-22'
+  keto-diet: '2022-09-02'
+  note: RapidAPI createdAt timestamps. All five listings are still marked ACTIVE and PUBLIC as of 2026-09-06.
+marketplace_telemetry:
+- api: Keto Diet API
+  subscriptions: 637
+  rating: 4.7
+  votes: 3
+  avg_service_level: 100
+  avg_success_rate: 100
+  avg_latency_ms: 493
+  popularity_score: 9.6
+  source: https://rapidapi.com/encurateapi-api/api/keto-diet
+- api: DogBreedDB API
+  subscriptions: 393
+  rating: 5.0
+  votes: 1
+  source: https://rapidapi.com/encurateapi-api/api/dogbreeddb
+- api: Weed Strain API
+  subscriptions: 380
+  rating: 3.8
+  votes: 5
+  source: https://rapidapi.com/encurateapi-api/api/weed-strain1
+- api: AirplanesDB API
+  subscriptions: 201
+  rating: null
+  votes: 0
+  source: https://rapidapi.com/encurateapi-api/api/airplanesdb
+- api: CatBreedDB API
+  subscriptions: 165
+  rating: null
+  votes: 0
+  source: https://rapidapi.com/encurateapi-api/api/catbreeddb
+retired:
+- name: BlogsAPI
+  listing: https://rapidapi.com/encurateapi-api/api/blogsapi
+  status: gone
+  evidence: Linked from https://encurate.app/ as a live product ("Crowd sourced and curated blogs from bloggers.
+    Build magazine apps with evergreen content from BlogsAPI"). The RapidAPI listing it points at returns the marketplace
+    not-found page on 2026-09-06 — HTTP 200 with a 404 body, the same response any invented slug returns. The product
+    appears to have been withdrawn without the homepage link being updated.
+deprecated_operations: []
+gaps:
+- No status page.
+- No changelog or release notes.
+- No deprecation or sunset policy.
+- No SLA.
+- A dead product link (BlogsAPI) is still presented as live on the homepage.

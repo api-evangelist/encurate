@@ -1,0 +1,50 @@
+generated: '2026-09-06'
+method: searched
+source:
+- https://rapidapi.com/encurateapi-api/api/keto-diet/playground (HTTP 200, 2026-09-06)
+- RapidAPI billingPlans records for all five Encurate APIs
+note: Encurate hosts no sandbox of its own. Its five APIs are distributed exclusively through the RapidAPI marketplace,
+  whose listing page carries an interactive request console ("playground") for every published operation, plus a
+  free BASIC tier on every API that a developer can subscribe to without payment. That is the console a consumer
+  actually gets; recorded as what it is, not upgraded into a sandbox it is not.
+sandbox_hosted_by: RapidAPI (marketplace), not Encurate
+console:
+  url: https://rapidapi.com/encurateapi-api/api/keto-diet/playground
+  status: 200
+  requires: a free RapidAPI account and a subscription to the API (the BASIC tier costs $0)
+  covers: every published operation on all five APIs
+free_tiers:
+- api: Keto Diet API
+  tier: BASIC
+  price: '0.00'
+  quota: 50 requests/day
+  url: https://rapidapi.com/encurateapi-api/api/keto-diet/pricing
+- api: AirplanesDB API
+  tier: BASIC
+  price: '0.00'
+  quota: 100 requests/day
+  url: https://rapidapi.com/encurateapi-api/api/airplanesdb
+- api: CatBreedDB API
+  tier: BASIC
+  price: '0.00'
+  quota: 100 requests/day
+  url: https://rapidapi.com/encurateapi-api/api/catbreeddb
+- api: DogBreedDB API
+  tier: BASIC
+  price: '0.00'
+  quota: 100 requests/day
+  url: https://rapidapi.com/encurateapi-api/api/dogbreeddb
+- api: Weed Strain API
+  tier: BASIC
+  price: '0.00'
+  quota: 100 requests/day
+  url: https://rapidapi.com/encurateapi-api/api/weed-strain1
+test_mode:
+  separate_keys: false
+  test_data: false
+  time_simulation: false
+  fixtures: false
+  note: There is no test-vs-live key split, no test fixture set and no time simulation. The free tier calls the
+    same production data as the paid tiers — appropriate for a read-only reference dataset, but it is a free tier,
+    not an isolated sandbox.
+test_values: []

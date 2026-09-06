@@ -1,13 +1,14 @@
 aid: encurate
 name: Encurate
-description: >-
-  Encurate provides a Keto Diet API offering over 450 keto recipes across 11
-  categories (drinks, smoothies, staples, dips, desserts, soups, fish, beef,
-  appetizers, snacks, and breakfast) with structured nutritional values
-  including calories, fats, carbohydrates, and proteins. The REST API returns
-  JSON and is distributed via RapidAPI with a free testing tier and a paid
-  unlimited production tier for integration into health, fitness, and nutrition
-  applications.
+description: 'Encurate (encurate.app) is a content-management backend for mobile apps that doubles as
+  a publisher of read-only reference-data APIs. Its platform lets developers manage magazine, news and
+  press-release content for their apps from one web interface, with image delivery over a CDN. Alongside
+  it Encurate operates five public REST APIs distributed exclusively through the RapidAPI marketplace:
+  Keto Diet (450+ ketogenic recipes in 11 categories with calorie, fat, carbohydrate and protein values),
+  AirplanesDB (commercial aircraft specifications), CatBreedDB and DogBreedDB (cat and dog breed metadata),
+  and Weed Strain (cannabis strain type, effect, flavor and origin). All 44 published operations are HTTP
+  GET returning JSON, authenticated with a RapidAPI key; there is no write surface, no OpenAPI, no SDK
+  and no event surface.'
 type: Index
 deliveryModel:
   model: unknown
@@ -34,44 +35,229 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/encurate.png
 tags:
-  - Diet
-  - Food
-  - Keto
-  - Nutrition
-  - Recipes
-  - Health
-  - Fitness
-url: https://encurate.app/keto_diet_api/
+- Diet
+- Food
+- Keto
+- Nutrition
+- Recipes
+- Health
+- Fitness
+- Datasets
+- Reference Data
+- Content Management
+- Mobile
+- Animals
+- Aviation
+- Cannabis
+- RapidAPI
+url: https://encurate.app/
 created: '2024-03-30'
-modified: '2026-04-28'
-position: Consuming
+modified: '2026-09-06'
+position: Producing
 access: 3rd-Party
 specificationVersion: '0.23'
 apis:
-  - aid: encurate:encurate-keto-diet-api
-    name: Encurate Keto Diet API
-    description: >-
-      Keto Diet REST API providing over 450 recipes across 11 categories with
-      structured nutritional values (calories, fats, carbohydrates, proteins)
-      returned as JSON, designed for integration into health, fitness, and
-      nutrition applications and distributed through RapidAPI.
-    humanURL: https://encurate.app/keto_diet_api/
-    tags:
-      - Diet
-      - Keto
-      - Nutrition
-      - Recipes
-      - Food
-    properties:
-      - type: Documentation
-        url: https://encurate.app/keto_diet_api/
+- aid: encurate:encurate-keto-diet-api
+  name: Encurate Keto Diet API
+  description: Read-only REST API serving over 450 ketogenic diet recipes across 11 categories (drinks,
+    smoothies, keto staples and dips, desserts, soups, fish, beef, appetizers, snacks and breakfast) with
+    nutritional values — calories, fats, carbohydrates and proteins — returned as floats for in-app calculation.
+    Twelve GET operations cover listing, single-recipe lookup, keyword search, category and difficulty
+    filters, and numeric range filters on calories, macros, prep time and cook time using Django __lt/__gt
+    lookup suffixes. Distributed through RapidAPI; free tier is 50 requests per day.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/encurate.png
+  humanURL: https://encurate.app/keto_diet_api/
+  baseURL: https://keto-diet.p.rapidapi.com
+  tags:
+  - Diet
+  - Keto
+  - Nutrition
+  - Recipes
+  - Food
+  x-operation-count: 12
+  x-distribution: RapidAPI marketplace proxy; origin is operated by Encurate at encurate.app
+  properties:
+  - type: Documentation
+    url: https://encurate.app/keto_diet_api/
+  - type: APIReference
+    url: https://rapidapi.com/encurateapi-api/api/keto-diet
+  - type: Pricing
+    url: https://rapidapi.com/encurateapi-api/api/keto-diet
+  - type: Sandbox
+    name: RapidAPI playground
+    url: https://rapidapi.com/encurateapi-api/api/keto-diet/playground
+  - type: SignUp
+    url: https://rapidapi.com/encurateapi-api/api/keto-diet
+- aid: encurate:encurate-airplanesdb-api
+  name: Encurate AirplanesDB API
+  description: Read-only REST API returning basic specifications for commercial airplanes. Seven GET operations
+    cover the full listing, a single airplane by ID, keyword search by name, filtering by brand (Boeing,
+    Airbus and others), search by engine keyword, and name-ordered listings in ascending or descending
+    order. Distributed through RapidAPI; free tier is 100 requests per day.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/encurate.png
+  humanURL: https://rapidapi.com/encurateapi-api/api/airplanesdb
+  baseURL: https://airplanesdb.p.rapidapi.com
+  tags:
+  - Aviation
+  - Aircraft
+  - Datasets
+  - Reference Data
+  - Transportation
+  x-operation-count: 7
+  x-distribution: RapidAPI marketplace proxy; origin is operated by Encurate at encurate.app
+  properties:
+  - type: Documentation
+    url: https://rapidapi.com/encurateapi-api/api/airplanesdb
+  - type: APIReference
+    url: https://rapidapi.com/encurateapi-api/api/airplanesdb
+  - type: Pricing
+    url: https://rapidapi.com/encurateapi-api/api/airplanesdb
+  - type: Sandbox
+    name: RapidAPI playground
+    url: https://rapidapi.com/encurateapi-api/api/airplanesdb/playground
+  - type: SignUp
+    url: https://rapidapi.com/encurateapi-api/api/airplanesdb
+- aid: encurate:encurate-catbreeddb-api
+  name: Encurate CatBreedDB API
+  description: Read-only REST API returning basic metadata on cat breeds from around the world. Nine GET
+    operations cover the full listing, a paginated listing at ten results per page, a single breed, keyword
+    search, and filters by origin country, fur color and breed type, plus name-ordered listings in either
+    direction. Distributed through RapidAPI; free tier is 100 requests per day.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/encurate.png
+  humanURL: https://rapidapi.com/encurateapi-api/api/catbreeddb
+  baseURL: https://catbreeddb.p.rapidapi.com
+  tags:
+  - Animals
+  - Cats
+  - Pets
+  - Datasets
+  - Reference Data
+  x-operation-count: 9
+  x-distribution: RapidAPI marketplace proxy; origin is operated by Encurate at encurate.app
+  properties:
+  - type: Documentation
+    url: https://rapidapi.com/encurateapi-api/api/catbreeddb
+  - type: APIReference
+    url: https://rapidapi.com/encurateapi-api/api/catbreeddb
+  - type: Pricing
+    url: https://rapidapi.com/encurateapi-api/api/catbreeddb
+  - type: Sandbox
+    name: RapidAPI playground
+    url: https://rapidapi.com/encurateapi-api/api/catbreeddb/playground
+  - type: SignUp
+    url: https://rapidapi.com/encurateapi-api/api/catbreeddb
+- aid: encurate:encurate-dogbreeddb-api
+  name: Encurate DogBreedDB API
+  description: Read-only REST API returning basic metadata on dog breeds from around the world. Nine GET
+    operations cover the full listing, a paginated listing at ten results per page, a single breed, keyword
+    search, and filters by origin country, fur color and breed type, plus name-ordered listings in either
+    direction. Encurate's most-subscribed dataset on RapidAPI; free tier is 100 requests per day.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/encurate.png
+  humanURL: https://rapidapi.com/encurateapi-api/api/dogbreeddb
+  baseURL: https://dogbreeddb.p.rapidapi.com
+  tags:
+  - Animals
+  - Dogs
+  - Pets
+  - Datasets
+  - Reference Data
+  x-operation-count: 9
+  x-distribution: RapidAPI marketplace proxy; origin is operated by Encurate at encurate.app
+  properties:
+  - type: Documentation
+    url: https://rapidapi.com/encurateapi-api/api/dogbreeddb
+  - type: APIReference
+    url: https://rapidapi.com/encurateapi-api/api/dogbreeddb
+  - type: Pricing
+    url: https://rapidapi.com/encurateapi-api/api/dogbreeddb
+  - type: Sandbox
+    name: RapidAPI playground
+    url: https://rapidapi.com/encurateapi-api/api/dogbreeddb/playground
+  - type: SignUp
+    url: https://rapidapi.com/encurateapi-api/api/dogbreeddb
+- aid: encurate:encurate-weed-strain-api
+  name: Encurate Weed Strain API
+  description: Read-only REST API returning metadata on cannabis strains — strain type (indica, sativa,
+    hybrid), effect, flavor and origin — aimed at mobile and web apps for dispensary locators, medical
+    marijuana references and wellness databases. Seven GET operations cover the full listing, a single
+    strain by ID, keyword search, filters by strain type and growing difficulty, and name-ordered listings
+    in either direction. Distributed through RapidAPI; free tier is 100 requests per day.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/encurate.png
+  humanURL: https://rapidapi.com/encurateapi-api/api/weed-strain1
+  baseURL: https://weed-strain1.p.rapidapi.com
+  tags:
+  - Cannabis
+  - Wellness
+  - Datasets
+  - Reference Data
+  - Health
+  x-operation-count: 7
+  x-distribution: RapidAPI marketplace proxy; origin is operated by Encurate at encurate.app
+  properties:
+  - type: Documentation
+    url: https://rapidapi.com/encurateapi-api/api/weed-strain1
+  - type: APIReference
+    url: https://rapidapi.com/encurateapi-api/api/weed-strain1
+  - type: Pricing
+    url: https://rapidapi.com/encurateapi-api/api/weed-strain1
+  - type: Sandbox
+    name: RapidAPI playground
+    url: https://rapidapi.com/encurateapi-api/api/weed-strain1/playground
+  - type: SignUp
+    url: https://rapidapi.com/encurateapi-api/api/weed-strain1
 common:
-  - type: DomainSecurity
-    url: security/encurate-domain-security.yml
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/encurate
-  - type: Website
-    url: https://encurate.app/
+- type: Website
+  url: https://encurate.app/
+- type: Documentation
+  url: https://encurate.app/keto_diet_api/
+- type: APIReference
+  url: https://rapidapi.com/encurateapi-api/api/keto-diet
+- type: Pricing
+  url: https://encurate.app/pricing/
+- type: SignUp
+  url: https://encurate.app/register/
+- type: Login
+  url: https://encurate.app/login/
+- type: Support
+  url: https://encurate.app/contact/
+- type: PrivacyPolicy
+  url: https://encurate.app/privacy_policy/
+- type: Sandbox
+  name: RapidAPI playground
+  url: https://rapidapi.com/encurateapi-api/api/keto-diet/playground
+- type: LinkedIn
+  url: https://www.linkedin.com/company/encurate
+- type: Twitter
+  url: https://twitter.com/encurate
+- type: Instagram
+  url: https://www.instagram.com/encurate.app/
+- type: Plans
+  url: plans/encurate-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/encurate-rate-limits.yml
+- type: Authentication
+  url: authentication/encurate-authentication.yml
+- type: Conventions
+  url: conventions/encurate-conventions.yml
+- type: ErrorCatalog
+  url: errors/encurate-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/encurate-lifecycle.yml
+- type: Conformance
+  url: conformance/encurate-conformance.yml
+- type: LLMsTxt
+  url: llms/encurate-llms.txt
+- type: X-MCPServerCandidate
+  url: mcp/encurate-mcp.yml
+- type: DomainSecurity
+  url: security/encurate-domain-security.yml
+- type: FinOps
+  url: finops/encurate-finops.yml
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-09-06'
+  status: enriched
+  artifacts_added: 10
+  pass: local-v3

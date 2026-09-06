@@ -1,0 +1,54 @@
+generated: '2026-09-06'
+method: probed
+source:
+- live unauthenticated probes of https://keto-diet.p.rapidapi.com/ and /categories/ (2026-09-06)
+- live unauthenticated probe of https://encurate.app/meta/keto/ (2026-09-06)
+- live unauthenticated probes of https://encurate.app/ paths (2026-09-06)
+format: proprietary
+note: 'Not RFC 9457. Encurate publishes no error reference. Two distinct envelopes are in play: the RapidAPI proxy
+  returns {"message": "..."} and the Django REST Framework origin returns {"detail": "..."}. Only the statuses actually
+  observed are recorded here; no error was inferred from a spec, because Encurate publishes no spec.'
+envelopes:
+- surface: RapidAPI proxy (*.p.rapidapi.com)
+  field: message
+  media_type: application/json
+- surface: origin (encurate.app/meta/)
+  field: detail
+  media_type: application/json
+problems:
+- status: 401
+  title: Invalid or missing API key
+  surface: RapidAPI proxy
+  body: '{"message":"Invalid API key. Go to https://docs.rapidapi.com/docs/keys for more info."}'
+  remediation: Subscribe to the API on RapidAPI and send X-RapidAPI-Key and X-RapidAPI-Host on every request.
+  evidence: https://keto-diet.p.rapidapi.com/ returned 401 on 2026-09-06
+- status: 429
+  title: Too many requests
+  surface: RapidAPI proxy
+  body: '{"message":"Too many requests"}'
+  remediation: Back off and retry. No Retry-After header is returned; the reset window is only visible via X-RateLimit-Requests-Reset
+    on authenticated responses.
+  evidence: https://keto-diet.p.rapidapi.com/categories/ returned 429 on 2026-09-06
+- status: 401
+  title: Authentication credentials were not provided
+  surface: origin (encurate.app/meta/)
+  body: '{"detail":"Authentication credentials were not provided."}'
+  remediation: The origin is not a documented public surface; consume the API through RapidAPI instead.
+  evidence: https://encurate.app/meta/keto/ and /meta/keto/categories/ returned 401 on 2026-09-06
+- status: 404
+  title: Not Found
+  surface: encurate.app website/origin
+  body: server-rendered HTML "Not Found" page
+  remediation: Check the path. Confirmed a real 404, not a soft-404 or SPA shell.
+  evidence: https://encurate.app/.well-known/security.txt and 20+ other paths returned 404 on 2026-09-06
+- status: 403
+  title: Cloudflare interstitial challenge
+  surface: encurate.app website
+  body: HTML "Just a moment..." Cloudflare managed-challenge page
+  remediation: A browser completes the challenge. Automated clients are turned away from /login/, /register/ and
+    /contact/. Not an API error and not a dead page.
+  evidence: https://encurate.app/login/ returned 403 on 2026-09-06
+gaps:
+- No published error reference on encurate.app or on any RapidAPI listing.
+- No error codes, no machine-readable type URIs, no problem+json.
+- Success-path error shapes (validation errors, 404 on an unknown recipe ID) could not be observed without a key.

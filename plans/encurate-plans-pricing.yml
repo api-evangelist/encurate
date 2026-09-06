@@ -4,143 +4,327 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Encurate
 providerId: encurate
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Diet
-  - Food
-  - Keto
-  - Nutrition
-  - Recipes
-  - Health
-  - Fitness
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
-plans:
-  - id: encurate-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Encurate API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+modified: '2026-09-06'
+generated: '2026-09-06'
+method: searched
+source:
+- https://encurate.app/pricing/ (platform plans, fetched 2026-09-06, HTTP 200)
+- https://rapidapi.com/encurateapi-api/api/keto-diet (RapidAPI billingPlans, fetched 2026-09-06, HTTP
+  200)
+- https://rapidapi.com/encurateapi-api/api/airplanesdb (HTTP 200)
+- https://rapidapi.com/encurateapi-api/api/catbreeddb (HTTP 200)
+- https://rapidapi.com/encurateapi-api/api/dogbreeddb (HTTP 200)
+- https://rapidapi.com/encurateapi-api/api/weed-strain1 (HTTP 200)
+note: 'Replaces the 2026-05-04 scaffold, which carried invented 1,000/month and 100,000/month tiers. Every
+  tier below is read verbatim from a page Encurate publishes: the encurate.app pricing page for the content-management
+  platform, and the RapidAPI marketplace listing''s own billingPlans record for each dataset API. Encurate
+  distributes all five dataset APIs exclusively through RapidAPI; its own pricing FAQ states ''the other
+  metadata is currently available for subscription only through Rapid API''.'
+discrepancy: The https://encurate.app/keto_diet_api/ marketing page advertises Basic $0 / 100 requests
+  per day and Pro $4 / unlimited requests. The RapidAPI listing that page's own Subscribe buttons link
+  to publishes BASIC $0 / 50 requests per day, PRO $2 / 4,000 requests per day and ULTRA $4 / 500,000
+  requests per month. The marketing figures are the encurate.app platform plan reused on the dataset page;
+  the RapidAPI figures are what a subscriber actually gets. Recorded, not reconciled — only Encurate can
+  say which is authoritative.
+plan_count: 15
+currency: USD
+billing:
+  platform: Stripe (encurate.app checkout redirects to Stripe)
+  datasets: RapidAPI marketplace billing
+surfaces:
+- name: Encurate content-management platform
+  url: https://encurate.app/pricing/
+  status: 200
+  plans:
+  - id: encurate-platform-basic
+    name: Basic
+    type: free
+    price: '0.00'
+    period: month
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
+    - label: API Requests
+      name: api_requests
+      type: quota
+      metric: requests
+      limit: 100
+      timeFrame: day
+      price: '0.00'
+    - label: Pretty Links
+      name: pretty_links
+      type: quota
+      metric: links
+      limit: 5
+      timeFrame: account
+      price: '0.00'
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Encurate Keto Diet API
-  - id: encurate-pro
-    name: Professional
+    - name: No Content Delivery Network
+    - name: Standard latency
+    - name: Unlimited projects
+  - id: encurate-platform-pro-monthly
+    name: Pro - Monthly
     type: paid
-    description: Production tier for Encurate. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+    price: '5.00'
+    period: month
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1000
-        price: TBD
-        userMultiplied: false
+    - label: API Requests
+      name: api_requests
+      type: quota
+      metric: requests
+      limit: null
+      unlimited: true
+      timeFrame: month
+      price: '5.00'
+    - label: Pretty Links
+      name: pretty_links
+      type: quota
+      metric: links
+      limit: 500
+      timeFrame: account
+      price: '5.00'
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Encurate Keto Diet API
-  - id: encurate-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Encurate. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
+    - name: Content Delivery Network for Images
+    - name: Lower latency
+    - name: Unlimited projects
+  - id: encurate-platform-pro-yearly
+    name: Pro - Yearly
+    type: paid
+    price: '50.00'
+    period: year
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
+    - label: API Requests
+      name: api_requests
+      type: quota
+      metric: requests
+      limit: null
+      unlimited: true
+      timeFrame: year
+      price: '50.00'
+    - label: Pretty Links
+      name: pretty_links
+      type: quota
+      metric: links
+      limit: 500
+      timeFrame: account
+      price: '50.00'
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Encurate Keto Diet API
+    - name: Content Delivery Network for Images
+    - name: Lower latency
+    - name: Unlimited projects
+  terms:
+  - No minimum commitment; cancel anytime.
+  - On cancellation requests are throttled back to 100 per day.
+  - No refunds — the Basic tier is free with no time limit.
+- name: Keto Diet API
+  url: https://rapidapi.com/encurateapi-api/api/keto-diet
+  status: 200
+  plans:
+  - id: encurate-keto-basic
+    name: BASIC
+    type: free
+    price: '0.00'
+    period: month
+    entries:
+    - label: Requests
+      name: requests
+      type: quota
+      metric: requests
+      timeFrame: day
+      price: '0.00'
+      description: A call to any endpoint is one request.
+      limit: 50
+      unlimited: false
+      limitType: hard
+  - id: encurate-keto-pro
+    name: PRO
+    type: paid
+    price: '2.00'
+    period: month
+    entries:
+    - label: Requests
+      name: requests
+      type: quota
+      metric: requests
+      timeFrame: day
+      price: '2.00'
+      description: A call to any endpoint is one request.
+      limit: 4000
+      unlimited: false
+      limitType: hard
+  - id: encurate-keto-ultra
+    name: ULTRA
+    type: paid
+    price: '4.00'
+    period: month
+    entries:
+    - label: Requests
+      name: requests
+      type: quota
+      metric: requests
+      timeFrame: month
+      price: '4.00'
+      description: A call to any endpoint is one request.
+      limit: 500000
+      unlimited: false
+      overagePrice: 5.0e-05
+      limitType: soft
+- name: AirplanesDB API
+  url: https://rapidapi.com/encurateapi-api/api/airplanesdb
+  status: 200
+  plans:
+  - id: encurate-airplanes-basic
+    name: BASIC
+    type: free
+    price: '0.00'
+    period: month
+    entries:
+    - label: Requests
+      name: requests
+      type: quota
+      metric: requests
+      timeFrame: day
+      price: '0.00'
+      description: A call to any endpoint is one request.
+      limit: 100
+      unlimited: false
+      limitType: hard
+  - id: encurate-airplanes-pro
+    name: PRO
+    type: paid
+    price: '2.00'
+    period: month
+    entries:
+    - label: Requests
+      name: requests
+      type: quota
+      metric: requests
+      timeFrame: day
+      price: '2.00'
+      description: A call to any endpoint is one request.
+      limit: 5000
+      unlimited: false
+      limitType: hard
+- name: CatBreedDB API
+  url: https://rapidapi.com/encurateapi-api/api/catbreeddb
+  status: 200
+  plans:
+  - id: encurate-cat-basic
+    name: BASIC
+    type: free
+    price: '0.00'
+    period: month
+    entries:
+    - label: Requests
+      name: requests
+      type: quota
+      metric: requests
+      timeFrame: day
+      price: '0.00'
+      description: A call to any endpoint is one request.
+      limit: 100
+      unlimited: false
+      limitType: hard
+  - id: encurate-cat-pro
+    name: PRO
+    type: paid
+    price: '2.00'
+    period: month
+    entries:
+    - label: Requests
+      name: requests
+      type: quota
+      metric: requests
+      timeFrame: month
+      price: '2.00'
+      description: A call to any endpoint is one request.
+      limit: null
+      unlimited: true
+- name: DogBreedDB API
+  url: https://rapidapi.com/encurateapi-api/api/dogbreeddb
+  status: 200
+  plans:
+  - id: encurate-dog-basic
+    name: BASIC
+    type: free
+    price: '0.00'
+    period: month
+    entries:
+    - label: Requests
+      name: requests
+      type: quota
+      metric: requests
+      timeFrame: day
+      price: '0.00'
+      description: A call to any endpoint is one request.
+      limit: 100
+      unlimited: false
+      limitType: hard
+  - id: encurate-dog-pro
+    name: PRO
+    type: paid
+    price: '1.00'
+    period: month
+    entries:
+    - label: Requests
+      name: requests
+      type: quota
+      metric: requests
+      timeFrame: month
+      price: '1.00'
+      description: A call to any endpoint is one request.
+      limit: 3000
+      unlimited: false
+      limitType: hard
+  - id: encurate-dog-ultra
+    name: ULTRA
+    type: paid
+    price: '2.00'
+    period: month
+    entries:
+    - label: Requests
+      name: requests
+      type: quota
+      metric: requests
+      timeFrame: month
+      price: '2.00'
+      description: A call to any endpoint is one request.
+      limit: 500000
+      unlimited: false
+      limitType: hard
+- name: Weed Strain API
+  url: https://rapidapi.com/encurateapi-api/api/weed-strain1
+  status: 200
+  plans:
+  - id: encurate-weed-basic
+    name: BASIC
+    type: free
+    price: '0.00'
+    period: month
+    entries:
+    - label: Requests
+      name: requests
+      type: quota
+      metric: requests
+      timeFrame: day
+      price: '0.00'
+      description: A call to any endpoint is one request.
+      limit: 100
+      unlimited: false
+      limitType: hard
+  - id: encurate-weed-pro
+    name: PRO
+    type: paid
+    price: '4.00'
+    period: month
+    entries:
+    - label: Requests
+      name: requests
+      type: quota
+      metric: requests
+      timeFrame: month
+      price: '4.00'
+      description: A call to any endpoint is one request.
+      limit: null
+      unlimited: true
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
